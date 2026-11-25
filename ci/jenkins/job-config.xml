@@ -1,0 +1,63 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<flow-definition plugin="workflow-job">
+  <description>ЛР №4, вариант 15: уведомления о результате (SUCCESS / FAILURE / UNSTABLE / ABORTED) и контроль покрытия JaCoCo</description>
+  <keepDependencies>false</keepDependencies>
+  <properties>
+    <hudson.model.ParametersDefinitionProperty>
+      <parameterDefinitions>
+        <hudson.model.ChoiceParameterDefinition>
+          <name>SIMULATE_RESULT</name>
+          <description>Вариант 15: контролируемый сценарий для проверки уведомлений. NONE — обычная сборка.</description>
+          <choices class="java.util.Arrays$ArrayList">
+            <a class="string-array">
+              <string>NONE</string>
+              <string>FAILURE</string>
+              <string>UNSTABLE</string>
+              <string>ABORTED</string>
+            </a>
+          </choices>
+        </hudson.model.ChoiceParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>MIN_LINE_COVERAGE</name>
+          <description>Минимальная доля покрытых строк (JaCoCo LINE COVEREDRATIO)</description>
+          <defaultValue>0.80</defaultValue>
+          <trim>true</trim>
+        </hudson.model.StringParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>MIN_BRANCH_COVERAGE</name>
+          <description>Минимальная доля покрытых ветвлений (JaCoCo BRANCH COVEREDRATIO)</description>
+          <defaultValue>0.60</defaultValue>
+          <trim>true</trim>
+        </hudson.model.StringParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>NOTIFY_EMAIL</name>
+          <description>Необязательно: адрес для e-mail уведомления (нужен настроенный SMTP)</description>
+          <defaultValue></defaultValue>
+          <trim>true</trim>
+        </hudson.model.StringParameterDefinition>
+      </parameterDefinitions>
+    </hudson.model.ParametersDefinitionProperty>
+  </properties>
+  <definition class="org.jenkinsci.plugins.workflow.cps.CpsScmFlowDefinition" plugin="workflow-cps">
+    <scm class="hudson.plugins.git.GitSCM" plugin="git">
+      <configVersion>2</configVersion>
+      <userRemoteConfigs>
+        <hudson.plugins.git.UserRemoteConfig>
+          <url>https://github.com/Sofilda/task-manager-cicd.git</url>
+        </hudson.plugins.git.UserRemoteConfig>
+      </userRemoteConfigs>
+      <branches>
+        <hudson.plugins.git.BranchSpec>
+          <name>*/main</name>
+        </hudson.plugins.git.BranchSpec>
+      </branches>
+      <doGenerateSubmoduleConfigurations>false</doGenerateSubmoduleConfigurations>
+      <submoduleCfg class="empty-list"/>
+      <extensions/>
+    </scm>
+    <scriptPath>Jenkinsfile</scriptPath>
+    <lightweight>true</lightweight>
+  </definition>
+  <triggers/>
+  <disabled>false</disabled>
+</flow-definition>
