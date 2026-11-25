@@ -85,14 +85,6 @@ pipeline {
      */
     agent any
 
-    // Инструменты из Manage Jenkins → Tools (как в ЛР №3):
-    // JDK с именем 'jdk21' и Maven с именем 'maven3'. Jenkins сам добавит их в PATH,
-    // поэтому команды java и mvn работают даже у службы Jenkins (LocalSystem).
-    tools {
-        jdk 'jdk21'
-        maven 'maven3'
-    }
-
     options {
         timestamps()
         disableConcurrentBuilds()

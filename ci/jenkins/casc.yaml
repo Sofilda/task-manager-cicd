@@ -5,16 +5,6 @@ jenkins:
   # Стенд одноразовый и недоступен извне: вход без авторизации.
   authorizationStrategy: unsecured
   securityRealm: none
-tool:
-  # Те же имена инструментов, что и в Jenkinsfile (tools { jdk 'jdk21'; maven 'maven3' })
-  jdk:
-    installations:
-      - name: jdk21
-        home: /opt/java/openjdk
-  maven:
-    installations:
-      - name: maven3
-        home: /usr/share/maven
 unclassified:
   location:
     url: "http://localhost:8080/"
