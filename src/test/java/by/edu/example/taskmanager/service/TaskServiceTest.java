@@ -23,7 +23,7 @@ class TaskServiceTest {
     @Test
     void createAssignsIdNormalizesTextAndDefaultsPriority() {
         Task created = service.create(" Prepare CI lab ", " Maven and JUnit ");
-        assertEquals(1L, created.id());
+        assertEquals(678, created.id());
         assertEquals("Prepare CI lab", created.title());
         assertEquals("Maven and JUnit", created.description());
         assertEquals(TaskStatus.NEW, created.status());
