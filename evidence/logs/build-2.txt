@@ -1,0 +1,250 @@
+Started by user unknown or anonymous
+Obtained Jenkinsfile from git https://github.com/Sofilda/task-manager-cicd.git
+[Pipeline] Start of Pipeline
+[Pipeline] node
+Running on Jenkins in /var/jenkins_home/jobs/Task-Manager-Variant15/workspace
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (Declarative: Checkout SCM)
+[Pipeline] checkout
+Selected Git installation does not exist. Using Default
+The recommended git tool is: NONE
+No credentials specified
+ > git rev-parse --resolve-git-dir /var/jenkins_home/jobs/Task-Manager-Variant15/workspace/.git # timeout=10
+Fetching changes from the remote Git repository
+ > git config remote.origin.url https://github.com/Sofilda/task-manager-cicd.git # timeout=10
+Fetching upstream changes from https://github.com/Sofilda/task-manager-cicd.git
+ > git --version # timeout=10
+ > git --version # 'git version 2.47.3'
+ > git fetch --tags --force --progress -- https://github.com/Sofilda/task-manager-cicd.git +refs/heads/*:refs/remotes/origin/* # timeout=10
+ > git rev-parse refs/remotes/origin/main^{commit} # timeout=10
+Checking out Revision d23529fb162cf66362e908ec81d699a8a185bef9 (refs/remotes/origin/main)
+ > git config core.sparsecheckout # timeout=10
+ > git checkout -f d23529fb162cf66362e908ec81d699a8a185bef9 # timeout=10
+Commit message: "Jenkinsfile: tools jdk21 and maven3 (as in lab 3) [skip ci]"
+ > git rev-list --no-walk d23529fb162cf66362e908ec81d699a8a185bef9 # timeout=10
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] timestamps
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (Declarative: Tool Install)
+[Pipeline] tool
+[Pipeline] envVarsForTool
+[Pipeline] tool
+[Pipeline] envVarsForTool
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (Checkout)
+[Pipeline] tool
+[Pipeline] envVarsForTool
+[Pipeline] tool
+[Pipeline] envVarsForTool
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] echo
+[2026-11-25T18:49:48.735Z] Получение исходного кода из Git
+[Pipeline] script
+[Pipeline] {
+[Pipeline] checkout
+[2026-11-25T18:49:48.771Z] Selected Git installation does not exist. Using Default
+[2026-11-25T18:49:48.771Z] The recommended git tool is: NONE
+[2026-11-25T18:49:48.771Z] No credentials specified
+[2026-11-25T18:49:48.771Z]  > git rev-parse --resolve-git-dir /var/jenkins_home/jobs/Task-Manager-Variant15/workspace/.git # timeout=10
+[2026-11-25T18:49:48.776Z] Fetching changes from the remote Git repository
+[2026-11-25T18:49:48.778Z]  > git config remote.origin.url https://github.com/Sofilda/task-manager-cicd.git # timeout=10
+[2026-11-25T18:49:48.782Z] Fetching upstream changes from https://github.com/Sofilda/task-manager-cicd.git
+[2026-11-25T18:49:48.782Z]  > git --version # timeout=10
+[2026-11-25T18:49:48.786Z]  > git --version # 'git version 2.47.3'
+[2026-11-25T18:49:48.786Z]  > git fetch --tags --force --progress -- https://github.com/Sofilda/task-manager-cicd.git +refs/heads/*:refs/remotes/origin/* # timeout=10
+[2026-11-25T18:49:49.031Z]  > git rev-parse refs/remotes/origin/main^{commit} # timeout=10
+[2026-11-25T18:49:49.036Z] Checking out Revision d23529fb162cf66362e908ec81d699a8a185bef9 (refs/remotes/origin/main)
+[2026-11-25T18:49:49.036Z]  > git config core.sparsecheckout # timeout=10
+[2026-11-25T18:49:49.040Z]  > git checkout -f d23529fb162cf66362e908ec81d699a8a185bef9 # timeout=10
+[2026-11-25T18:49:49.047Z] Commit message: "Jenkinsfile: tools jdk21 and maven3 (as in lab 3) [skip ci]"
+[Pipeline] }
+[Pipeline] // script
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Toolchain)
+[Pipeline] tool
+[Pipeline] envVarsForTool
+[Pipeline] tool
+[Pipeline] envVarsForTool
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] isUnix
+[Pipeline] sh
+[2026-11-25T18:49:49.483Z] + java -version
+[2026-11-25T18:49:49.483Z] openjdk version "21.0.13.1" 2026-11-17 LTS
+[2026-11-25T18:49:49.483Z] OpenJDK Runtime Environment Temurin-21.0.13.1+2 (build 21.0.13.1+2-LTS)
+[2026-11-25T18:49:49.483Z] OpenJDK 64-Bit Server VM Temurin-21.0.13.1+2 (build 21.0.13.1+2-LTS, mixed mode)
+[Pipeline] isUnix
+[Pipeline] sh
+[2026-11-25T18:49:49.751Z] + mvn -version
+[2026-11-25T18:49:49.751Z] [1mApache Maven 3.9.9[m
+[2026-11-25T18:49:49.751Z] Maven home: /usr/share/maven
+[2026-11-25T18:49:49.751Z] Java version: 21.0.13.1, vendor: Eclipse Adoptium, runtime: /opt/java/openjdk
+[2026-11-25T18:49:49.751Z] Default locale: en, platform encoding: UTF-8
+[2026-11-25T18:49:49.751Z] OS name: "linux", version: "7.0.0-1020-azure", arch: "amd64", family: "unix"
+[Pipeline] isUnix
+[Pipeline] sh
+[2026-11-25T18:49:50.018Z] + git --version
+[2026-11-25T18:49:50.018Z] git version 2.47.3
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Build and Verify)
+[Pipeline] tool
+[Pipeline] envVarsForTool
+[Pipeline] tool
+[Pipeline] envVarsForTool
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] script
+[Pipeline] {
+[Pipeline] echo
+[2026-11-25T18:49:50.158Z] Команда Maven: mvn -B -ntp clean verify -Dcoverage.line.minimum=0.80 -Dcoverage.branch.minimum=0.60 -Dci.demo.failTest=true
+[Pipeline] isUnix
+[Pipeline] sh
+[2026-11-25T18:49:50.423Z] + mvn -B -ntp clean verify -Dcoverage.line.minimum=0.80 -Dcoverage.branch.minimum=0.60 -Dci.demo.failTest=true
+[2026-11-25T18:49:51.767Z] [INFO] Scanning for projects...
+[2026-11-25T18:49:51.767Z] [INFO] 
+[2026-11-25T18:49:51.767Z] [INFO] ------------------< by.edu.example:task-manager-cicd >------------------
+[2026-11-25T18:49:51.767Z] [INFO] Building task-manager-cicd 1.0.0
+[2026-11-25T18:49:51.767Z] [INFO]   from pom.xml
+[2026-11-25T18:49:51.767Z] [INFO] --------------------------------[ jar ]---------------------------------
+[2026-11-25T18:49:52.318Z] [INFO] 
+[2026-11-25T18:49:52.318Z] [INFO] --- clean:3.4.1:clean (default-clean) @ task-manager-cicd ---
+[2026-11-25T18:49:52.318Z] [INFO] Deleting /var/jenkins_home/jobs/Task-Manager-Variant15/workspace/target
+[2026-11-25T18:49:52.318Z] [INFO] 
+[2026-11-25T18:49:52.318Z] [INFO] --- jacoco:0.8.15:prepare-agent (prepare-agent) @ task-manager-cicd ---
+[2026-11-25T18:49:52.569Z] [INFO] argLine set to -javaagent:/var/jenkins_home/.m2/repository/org/jacoco/org.jacoco.agent/0.8.15/org.jacoco.agent-0.8.15-runtime.jar=destfile=/var/jenkins_home/jobs/Task-Manager-Variant15/workspace/target/jacoco.exec,excludes=by/edu/example/taskmanager/TaskManagerApplication.class
+[2026-11-25T18:49:52.569Z] [INFO] 
+[2026-11-25T18:49:52.569Z] [INFO] --- resources:3.3.1:resources (default-resources) @ task-manager-cicd ---
+[2026-11-25T18:49:52.569Z] [INFO] Copying 1 resource from src/main/resources to target/classes
+[2026-11-25T18:49:52.569Z] [INFO] Copying 0 resource from src/main/resources to target/classes
+[2026-11-25T18:49:52.569Z] [INFO] 
+[2026-11-25T18:49:52.569Z] [INFO] --- compiler:3.14.1:compile (default-compile) @ task-manager-cicd ---
+[2026-11-25T18:49:52.820Z] [INFO] Recompiling the module because of changed source code.
+[2026-11-25T18:49:52.820Z] [INFO] Compiling 13 source files with javac [debug parameters release 21] to target/classes
+[2026-11-25T18:49:53.731Z] [INFO] 
+[2026-11-25T18:49:53.731Z] [INFO] --- resources:3.3.1:testResources (default-testResources) @ task-manager-cicd ---
+[2026-11-25T18:49:53.731Z] [INFO] skip non existing resourceDirectory /var/jenkins_home/jobs/Task-Manager-Variant15/workspace/src/test/resources
+[2026-11-25T18:49:53.731Z] [INFO] 
+[2026-11-25T18:49:53.731Z] [INFO] --- compiler:3.14.1:testCompile (default-testCompile) @ task-manager-cicd ---
+[2026-11-25T18:49:53.731Z] [INFO] Recompiling the module because of changed dependency.
+[2026-11-25T18:49:53.731Z] [INFO] Compiling 3 source files with javac [debug parameters release 21] to target/test-classes
+[2026-11-25T18:49:54.282Z] [INFO] 
+[2026-11-25T18:49:54.282Z] [INFO] --- surefire:3.5.6:test (default-test) @ task-manager-cicd ---
+[2026-11-25T18:49:54.282Z] [INFO] Using auto detected provider org.apache.maven.surefire.junitplatform.JUnitPlatformProvider
+[2026-11-25T18:49:54.282Z] [INFO] 
+[2026-11-25T18:49:54.282Z] [INFO] -------------------------------------------------------
+[2026-11-25T18:49:54.282Z] [INFO]  T E S T S
+[2026-11-25T18:49:54.282Z] [INFO] -------------------------------------------------------
+[2026-11-25T18:49:55.629Z] [INFO] Running by.edu.example.taskmanager.CiDemoTest
+[2026-11-25T18:49:55.629Z] [ERROR] Tests run: 1, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 0.103 s <<< FAILURE! -- in by.edu.example.taskmanager.CiDemoTest
+[2026-11-25T18:49:55.629Z] [ERROR] by.edu.example.taskmanager.CiDemoTest.controlledFailureForCiDemo -- Time elapsed: 0.054 s <<< FAILURE!
+[2026-11-25T18:49:55.630Z] org.opentest4j.AssertionFailedError: Контролируемая ошибка: демонстрация обработки неуспешного результата в CI
+[2026-11-25T18:49:55.630Z] 	at org.junit.jupiter.api.AssertionUtils.fail(AssertionUtils.java:38)
+[2026-11-25T18:49:55.630Z] 	at org.junit.jupiter.api.Assertions.fail(Assertions.java:138)
+[2026-11-25T18:49:55.630Z] 	at by.edu.example.taskmanager.CiDemoTest.controlledFailureForCiDemo(CiDemoTest.java:18)
+[2026-11-25T18:49:55.630Z] 	at java.base/java.lang.reflect.Method.invoke(Unknown Source)
+[2026-11-25T18:49:55.630Z] 	at java.base/java.util.ArrayList.forEach(Unknown Source)
+[2026-11-25T18:49:55.630Z] 	at java.base/java.util.ArrayList.forEach(Unknown Source)
+[2026-11-25T18:49:55.630Z] 
+[2026-11-25T18:49:55.630Z] [INFO] Running by.edu.example.taskmanager.service.TaskServiceTest
+[2026-11-25T18:49:55.630Z] [INFO] Tests run: 14, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.110 s -- in by.edu.example.taskmanager.service.TaskServiceTest
+[2026-11-25T18:49:55.880Z] [INFO] 
+[2026-11-25T18:49:55.880Z] [INFO] Results:
+[2026-11-25T18:49:55.880Z] [INFO] 
+[2026-11-25T18:49:55.880Z] [ERROR] Failures: 
+[2026-11-25T18:49:55.880Z] [ERROR]   CiDemoTest.controlledFailureForCiDemo:18 Контролируемая ошибка: демонстрация обработки неуспешного результата в CI
+[2026-11-25T18:49:55.880Z] [INFO] 
+[2026-11-25T18:49:55.880Z] [ERROR] Tests run: 15, Failures: 1, Errors: 0, Skipped: 0
+[2026-11-25T18:49:55.880Z] [INFO] 
+[2026-11-25T18:49:55.880Z] [INFO] ------------------------------------------------------------------------
+[2026-11-25T18:49:55.880Z] [INFO] BUILD FAILURE
+[2026-11-25T18:49:55.880Z] [INFO] ------------------------------------------------------------------------
+[2026-11-25T18:49:55.880Z] [INFO] Total time:  4.229 s
+[2026-11-25T18:49:55.880Z] [INFO] Finished at: 2026-11-25T18:49:55Z
+[2026-11-25T18:49:55.880Z] [INFO] ------------------------------------------------------------------------
+[2026-11-25T18:49:55.880Z] [ERROR] Failed to execute goal org.apache.maven.plugins:maven-surefire-plugin:3.5.6:test (default-test) on project task-manager-cicd: There are test failures.
+[2026-11-25T18:49:55.880Z] [ERROR] 
+[2026-11-25T18:49:55.880Z] [ERROR] See /var/jenkins_home/jobs/Task-Manager-Variant15/workspace/target/surefire-reports for the individual test results.
+[2026-11-25T18:49:55.880Z] [ERROR] See dump files (if any exist) [date].dump, [date]-jvmRun[N].dump and [date].dumpstream.
+[2026-11-25T18:49:55.880Z] [ERROR] -> [Help 1]
+[2026-11-25T18:49:55.880Z] [ERROR] 
+[2026-11-25T18:49:55.881Z] [ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[2026-11-25T18:49:55.881Z] [ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[2026-11-25T18:49:55.881Z] [ERROR] 
+[2026-11-25T18:49:55.881Z] [ERROR] For more information about the errors and possible solutions, please read the following articles:
+[2026-11-25T18:49:55.881Z] [ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoFailureException
+[Pipeline] }
+[Pipeline] // script
+Post stage
+[Pipeline] script
+[Pipeline] {
+[Pipeline] junit
+[2026-11-25T18:49:55.975Z] Recording test results
+[2026-11-25T18:49:55.992Z] [Checks API] No suitable checks publisher found.
+[Pipeline] }
+[Pipeline] // script
+[Pipeline] archiveArtifacts
+[2026-11-25T18:49:56.057Z] Archiving artifacts
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Coverage Summary)
+Stage "Coverage Summary" skipped due to earlier failure(s)
+[Pipeline] getContext
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Simulate Abort)
+Stage "Simulate Abort" skipped due to earlier failure(s)
+[Pipeline] getContext
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Declarative: Post Actions)
+[Pipeline] echo
+[2026-11-25T18:49:56.228Z] ==================== УВЕДОМЛЕНИЕ CI ====================
+[2026-11-25T18:49:56.228Z] ❌ [FAILURE] Сборка завершилась ошибкой
+[2026-11-25T18:49:56.228Z] Задание     : Task-Manager-Variant15 #2
+[2026-11-25T18:49:56.228Z] Ветка/commit: origin/main / d23529f
+[2026-11-25T18:49:56.228Z] Режим       : SIMULATE_RESULT=FAILURE
+[2026-11-25T18:49:56.228Z] Тесты       : всего 15, упало 1, пропущено 0
+[2026-11-25T18:49:56.228Z] Покрытие    : отчёт JaCoCo не сформирован (порог LINE 0.80, BRANCH 0.60)
+[2026-11-25T18:49:56.228Z] Длительность: 9 sec
+[2026-11-25T18:49:56.228Z] Что делать  : Откройте Console Output и найдите первую ошибку (компиляция, тесты, quality gate JaCoCo).
+[2026-11-25T18:49:56.228Z] Ссылка      : http://localhost:8080/job/Task-Manager-Variant15/2/
+[2026-11-25T18:49:56.228Z] ========================================================
+[Pipeline] writeFile
+[Pipeline] archiveArtifacts
+[2026-11-25T18:49:56.251Z] Archiving artifacts
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // timestamps
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // node
+[Pipeline] End of Pipeline
+ERROR: script returned exit code 1
+Finished: FAILURE
