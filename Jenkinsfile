@@ -79,10 +79,7 @@ def runCmd(String command) {
 }
 
 pipeline {
-    /*
-     * На учебном стенде из методички: agent { label 'windows-java21-agent' }.
-     * Здесь — любой узел с Java 21, Maven и Git (Windows или Linux).
-     */
+
     agent any
 
     // Инструменты из Manage Jenkins → Tools (как в ЛР №3):
