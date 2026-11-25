@@ -1,0 +1,10 @@
+jenkins:
+  systemMessage: "ЛР №4, вариант 15 — учебный стенд Jenkins (Федоренко С. А., гр. 472302)"
+  numExecutors: 2
+  mode: NORMAL
+  # Стенд одноразовый и недоступен извне: вход без авторизации.
+  authorizationStrategy: unsecured
+  securityRealm: none
+unclassified:
+  location:
+    url: "http://localhost:8080/"
