@@ -1,0 +1,142 @@
+# Лабораторная работа №4, вариант 15.
+# Основа: Workflow из методического пособия (часть 2).
+# Индивидуальное задание, часть 2 (вариант 15):
+#   организация контроля покрытия кода автоматизированными тестами.
+#   - quality gate JaCoCo (jacoco:check) с порогами LINE и BRANCH;
+#   - пороги задаются при ручном запуске (workflow_dispatch);
+#   - сводка покрытия выводится в Job Summary и сохраняется в артефакт;
+#   - JAR публикуется только если порог покрытия выполнен.
+
+name: Java Application CI
+
+on:
+  push:
+    branches:
+      - main
+      - "feature/**"
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+    inputs:
+      min_line_coverage:
+        description: 'Минимальное покрытие строк (0..1), например 0.80'
+        required: true
+        type: string
+        default: '0.80'
+      min_branch_coverage:
+        description: 'Минимальное покрытие ветвлений (0..1), например 0.60'
+        required: true
+        type: string
+        default: '0.60'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: java-ci-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  # При push / pull_request inputs пусты — используются пороги по умолчанию.
+  MIN_LINE_COVERAGE: ${{ inputs.min_line_coverage || '0.80' }}
+  MIN_BRANCH_COVERAGE: ${{ inputs.min_branch_coverage || '0.60' }}
+
+jobs:
+  verify:
+    name: Build, tests and coverage gate
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 21
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+          cache: maven
+
+      - name: Show toolchain
+        shell: pwsh
+        run: |
+          java -version
+          mvn -version
+          git --version
+
+      # Сборка, модульные и интеграционные тесты, отчёт JaCoCo
+      # и quality gate (jacoco:check) — всё на фазе verify.
+      - name: Build, test and check coverage
+        shell: pwsh
+        run: >
+          mvn -B -ntp clean verify
+          "-Dcoverage.line.minimum=${{ env.MIN_LINE_COVERAGE }}"
+          "-Dcoverage.branch.minimum=${{ env.MIN_BRANCH_COVERAGE }}"
+
+      - name: Generate Surefire HTML report
+        if: always()
+        shell: pwsh
+        run: |
+          if (Test-Path 'target/surefire-reports') {
+            mvn -B -ntp surefire-report:report-only
+            if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          } else {
+            Write-Host 'Surefire reports are absent.'
+          }
+
+      # Вариант 15: сводка покрытия в Job Summary (видна на странице запуска).
+      - name: Coverage summary
+        if: always()
+        shell: pwsh
+        run: |
+          $csv = 'target/site/jacoco/jacoco.csv'
+          if (-not (Test-Path $csv)) {
+            "### ⚠️ Отчёт JaCoCo не сформирован" >> $env:GITHUB_STEP_SUMMARY
+            Write-Host 'jacoco.csv is absent'
+            exit 0
+          }
+          $rows = Import-Csv $csv
+          $lc = ($rows | Measure-Object LINE_COVERED   -Sum).Sum
+          $lm = ($rows | Measure-Object LINE_MISSED    -Sum).Sum
+          $bc = ($rows | Measure-Object BRANCH_COVERED -Sum).Sum
+          $bm = ($rows | Measure-Object BRANCH_MISSED  -Sum).Sum
+          $line   = [math]::Round($lc / ($lc + $lm), 4)
+          $branch = [math]::Round($bc / ($bc + $bm), 4)
+          $minL = [double]::Parse($env:MIN_LINE_COVERAGE,   [Globalization.CultureInfo]::InvariantCulture)
+          $minB = [double]::Parse($env:MIN_BRANCH_COVERAGE, [Globalization.CultureInfo]::InvariantCulture)
+          $okL = if ($line   -ge $minL) { '✅' } else { '❌' }
+          $okB = if ($branch -ge $minB) { '✅' } else { '❌' }
+          $summary = @"
+          ### Покрытие кода тестами (JaCoCo)
+          | Метрика | Покрыто | Всего | Факт | Порог | Итог |
+          |---|---|---|---|---|---|
+          | LINE   | $lc | $($lc+$lm) | $([math]::Round($line*100,1))% | $([math]::Round($minL*100,1))% | $okL |
+          | BRANCH | $bc | $($bc+$bm) | $([math]::Round($branch*100,1))% | $([math]::Round($minB*100,1))% | $okB |
+          "@
+          $summary >> $env:GITHUB_STEP_SUMMARY
+          $summary | Out-File -Encoding utf8 target/coverage-summary.md
+          Write-Host $summary
+
+      - name: Upload test and coverage reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-reports-windows
+          path: |
+            target/surefire-reports/**
+            target/failsafe-reports/**
+            target/site/surefire-report.html
+            target/site/jacoco/**
+            target/coverage-summary.md
+          if-no-files-found: warn
+          retention-days: 7
+
+      - name: Upload executable JAR
+        if: success()
+        uses: actions/upload-artifact@v4
+        with:
+          name: task-manager-jar
+          path: target/task-manager-cicd-1.0.0.jar
+          if-no-files-found: error
+          retention-days: 7
