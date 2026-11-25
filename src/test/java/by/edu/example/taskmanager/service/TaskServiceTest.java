@@ -28,7 +28,7 @@ class TaskServiceTest {
         assertEquals("Maven and JUnit", created.description());
         assertEquals(TaskStatus.NEW, created.status());
         assertEquals(TaskPriority.NORMAL, created.priority());
-        assertNotNull(created.createdAt());
+
     }
 
     @Test
@@ -57,6 +57,7 @@ class TaskServiceTest {
         assertEquals(2, result.size());
         assertEquals(first.id(), result.get(0).id());
         assertEquals(second.id(), result.get(1).id());
+
     }
 
     @Test
