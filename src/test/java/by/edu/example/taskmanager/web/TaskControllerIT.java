@@ -134,13 +134,13 @@ class TaskControllerIT {
         assertEquals(400, response.getBody().status());
     }
 
-//    @Test
-//    void unknownTaskReturnsNotFound() {
-//        ResponseEntity<ApiError> response = restTemplate.getForEntity("/api/tasks/987654321", ApiError.class);
-//        assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
-//        assertNotNull(response.getBody());
-//        assertEquals(404, response.getBody().status());
-//    }
+    @Test
+    void unknownTaskReturnsNotFound() {
+        ResponseEntity<ApiError> response = restTemplate.getForEntity("/api/tasks/987654321", ApiError.class);
+        assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
+        assertNotNull(response.getBody());
+        assertEquals(404, response.getBody().status());
+    }
 
     @Test
     void patchChangesTaskStatusWithoutLosingPriority() {
